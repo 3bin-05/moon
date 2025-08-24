@@ -14,6 +14,13 @@ interface MoonDayModalProps {
 export function MoonDayModal({ isOpen, onClose, date, moonPhase, luck }: MoonDayModalProps) {
   if (!date || !moonPhase || !luck) return null;
 
+  // --- Start of the fix ---
+  // 1. Create the filename from the moon phase name
+  const imageName = moonPhase.name.toLowerCase().replace(/ /g, "-");
+  // 2. Build the full path to the image in the public folder ✅
+  const imagePath = `/images/moon-${imageName}.png`;
+  // --- End of the fix ---
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="bg-cosmic-card/95 border-cosmic-accent/30 backdrop-blur-md max-w-md mx-auto">
@@ -28,7 +35,7 @@ export function MoonDayModal({ isOpen, onClose, date, moonPhase, luck }: MoonDay
                 <div className="flex flex-col items-center space-y-4">
                   <div className="w-20 h-20 rounded-full bg-cosmic-card/50 border-2 border-cosmic-accent/30 flex items-center justify-center shadow-glow-primary">
                     <img
-                      src={moonPhase.image}
+                      src={imagePath} // 3. Use the corrected path here
                       alt={moonPhase.name}
                       className="w-16 h-16 object-contain"
                     />
