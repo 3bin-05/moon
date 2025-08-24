@@ -123,7 +123,7 @@ const Index = () => {
         {/* Footer */}
         <footer className="text-center mt-16 pt-8 border-t border-border/30">
           <p className="text-cosmic-silver/60">
-            Powered by astronomical calculations • Built with cosmic precision
+            Powered by Ebin reji For NASA Space Challenge
           </p>
         </footer>
       </div>
