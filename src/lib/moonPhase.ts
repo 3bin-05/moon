@@ -4,7 +4,7 @@ export interface MoonPhase {
   name: string;
   emoji: string;
   illumination: number; // 0-100%
-  // REMOVED: The 'image' property is no longer needed here.
+  image: string;
 }
 
 // Calculate moon phase based on date
@@ -26,13 +26,13 @@ export function getMoonPhase(date: Date): MoonPhase {
 function getPhaseDetails(phase: number): MoonPhase {
   const illumination = Math.round(50 * (1 - Math.cos(2 * Math.PI * phase)));
   
-  // ✅ NOTE: The 'image' property has been removed from all return objects.
   if (phase < 0.0625 || phase >= 0.9375) {
     return {
       phase,
       name: "New Moon",
       emoji: "🌑",
       illumination,
+      image: "/src/assets/moon-new.png"
     };
   } else if (phase < 0.1875) {
     return {
@@ -40,6 +40,7 @@ function getPhaseDetails(phase: number): MoonPhase {
       name: "Waxing Crescent",
       emoji: "🌒",
       illumination,
+      image: "/src/assets/moon-waxing-crescent.png"
     };
   } else if (phase < 0.3125) {
     return {
@@ -47,6 +48,7 @@ function getPhaseDetails(phase: number): MoonPhase {
       name: "First Quarter",
       emoji: "🌓",
       illumination,
+      image: "/src/assets/moon-first-quarter.png"
     };
   } else if (phase < 0.4375) {
     return {
@@ -54,6 +56,7 @@ function getPhaseDetails(phase: number): MoonPhase {
       name: "Waxing Gibbous",
       emoji: "🌔",
       illumination,
+      image: "/src/assets/moon-waxing-gibbous.png"
     };
   } else if (phase < 0.5625) {
     return {
@@ -61,6 +64,7 @@ function getPhaseDetails(phase: number): MoonPhase {
       name: "Full Moon",
       emoji: "🌕",
       illumination,
+      image: "/src/assets/moon-full.png"
     };
   } else if (phase < 0.6875) {
     return {
@@ -68,6 +72,7 @@ function getPhaseDetails(phase: number): MoonPhase {
       name: "Waning Gibbous",
       emoji: "🌖",
       illumination,
+      image: "/src/assets/moon-waning-gibbous.png"
     };
   } else if (phase < 0.8125) {
     return {
@@ -75,6 +80,7 @@ function getPhaseDetails(phase: number): MoonPhase {
       name: "Third Quarter",
       emoji: "🌗",
       illumination,
+      image: "/src/assets/moon-third-quarter.png"
     };
   } else {
     return {
@@ -82,6 +88,7 @@ function getPhaseDetails(phase: number): MoonPhase {
       name: "Waning Crescent",
       emoji: "🌘",
       illumination,
+      image: "/src/assets/moon-waning-crescent.png"
     };
   }
 }
