@@ -1,13 +1,5 @@
 import { Card } from "@/components/ui/card";
 import { MoonPhase } from "@/lib/moonPhase";
-import moonNew from "@/assets/moon-new.png";
-import moonWaxingCrescent from "@/assets/moon-waxing-crescent.png";
-import moonFirstQuarter from "@/assets/moon-first-quarter.png";
-import moonWaxingGibbous from "@/assets/moon-waxing-gibbous.png";
-import moonFull from "@/assets/moon-full.png";
-import moonWaningGibbous from "@/assets/moon-waning-gibbous.png";
-import moonThirdQuarter from "@/assets/moon-third-quarter.png";
-import moonWaningCrescent from "@/assets/moon-waning-crescent.png";
 
 interface MoonPhaseCardProps {
   moonPhase: MoonPhase;
@@ -16,19 +8,12 @@ interface MoonPhaseCardProps {
   className?: string;
 }
 
-const moonImages = {
-  "New Moon": moonNew,
-  "Waxing Crescent": moonWaxingCrescent,
-  "First Quarter": moonFirstQuarter,
-  "Waxing Gibbous": moonWaxingGibbous,
-  "Full Moon": moonFull,
-  "Waning Gibbous": moonWaningGibbous,
-  "Third Quarter": moonThirdQuarter,
-  "Waning Crescent": moonWaningCrescent,
-};
-
 export function MoonPhaseCard({ moonPhase, date, isToday = false, className = "" }: MoonPhaseCardProps) {
-  const moonImage = moonImages[moonPhase.name as keyof typeof moonImages];
+  // Convert the phase name (e.g., "Waxing Crescent") into a filename-friendly string (e.g., "waxing-crescent")
+  const imageName = moonPhase.name.toLowerCase().replace(/ /g, "-");
+  
+  // Construct the direct path to the image in the 'public' folder ✅
+  const moonImage = `/images/moon-${imageName}.png`;
 
   return (
     <Card className={`bg-gradient-card border-border/50 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-glow-primary ${isToday ? 'ring-2 ring-primary shadow-glow-primary' : ''} ${className}`}>
