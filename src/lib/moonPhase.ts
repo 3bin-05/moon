@@ -12,27 +12,27 @@ export function getMoonPhase(date: Date): MoonPhase {
   // Known new moon date: January 11, 2024
   const knownNewMoon = new Date(2024, 0, 11);
   const lunarCycle = 29.530588853; // Days in a lunar cycle
-  
+
   const timeDiff = date.getTime() - knownNewMoon.getTime();
   const daysDiff = timeDiff / (1000 * 60 * 60 * 24);
-  
+
   // Calculate phase position (0-1)
   let phase = (daysDiff % lunarCycle) / lunarCycle;
   if (phase < 0) phase += 1;
-  
+
   return getPhaseDetails(phase);
 }
 
 function getPhaseDetails(phase: number): MoonPhase {
   const illumination = Math.round(50 * (1 - Math.cos(2 * Math.PI * phase)));
-  
+
   if (phase < 0.0625 || phase >= 0.9375) {
     return {
       phase,
       name: "New Moon",
       emoji: "🌑",
       illumination,
-      image: "/src/assets/moon-new.png"
+      image: "/images/moon-new.png"
     };
   } else if (phase < 0.1875) {
     return {
@@ -40,7 +40,7 @@ function getPhaseDetails(phase: number): MoonPhase {
       name: "Waxing Crescent",
       emoji: "🌒",
       illumination,
-      image: "/src/assets/moon-waxing-crescent.png"
+      image: "/images/moon-waxing-crescent.png"
     };
   } else if (phase < 0.3125) {
     return {
@@ -48,7 +48,7 @@ function getPhaseDetails(phase: number): MoonPhase {
       name: "First Quarter",
       emoji: "🌓",
       illumination,
-      image: "/src/assets/moon-first-quarter.png"
+      image: "/images/moon-first-quarter.png"
     };
   } else if (phase < 0.4375) {
     return {
@@ -56,7 +56,7 @@ function getPhaseDetails(phase: number): MoonPhase {
       name: "Waxing Gibbous",
       emoji: "🌔",
       illumination,
-      image: "/src/assets/moon-waxing-gibbous.png"
+      image: "/images/moon-waxing-gibbous.png"
     };
   } else if (phase < 0.5625) {
     return {
@@ -64,7 +64,7 @@ function getPhaseDetails(phase: number): MoonPhase {
       name: "Full Moon",
       emoji: "🌕",
       illumination,
-      image: "/src/assets/moon-full.png"
+      image: "/images/moon-full.png"
     };
   } else if (phase < 0.6875) {
     return {
@@ -72,7 +72,7 @@ function getPhaseDetails(phase: number): MoonPhase {
       name: "Waning Gibbous",
       emoji: "🌖",
       illumination,
-      image: "/src/assets/moon-waning-gibbous.png"
+      image: "/images/moon-waning-gibbous.png"
     };
   } else if (phase < 0.8125) {
     return {
@@ -80,7 +80,7 @@ function getPhaseDetails(phase: number): MoonPhase {
       name: "Third Quarter",
       emoji: "🌗",
       illumination,
-      image: "/src/assets/moon-third-quarter.png"
+      image: "/images/moon-third-quarter.png"
     };
   } else {
     return {
@@ -88,7 +88,7 @@ function getPhaseDetails(phase: number): MoonPhase {
       name: "Waning Crescent",
       emoji: "🌘",
       illumination,
-      image: "/src/assets/moon-waning-crescent.png"
+      image: "/images/moon-waning-crescent.png"
     };
   }
 }
@@ -96,17 +96,17 @@ function getPhaseDetails(phase: number): MoonPhase {
 // Get moon phases for the next N days
 export function getMoonPhasesForDays(startDate: Date, days: number): Array<{ date: Date; moonPhase: MoonPhase }> {
   const phases = [];
-  
+
   for (let i = 0; i < days; i++) {
     const date = new Date(startDate);
     date.setDate(date.getDate() + i);
-    
+
     phases.push({
       date,
       moonPhase: getMoonPhase(date)
     });
   }
-  
+
   return phases;
 }
 
@@ -143,11 +143,11 @@ export const moonLuckMessages: Record<string, string> = {
 // Get moon phases for a full month (30 days)
 export function getMoonPhasesForMonth(startDate: Date = new Date()): Array<{ date: Date; moonPhase: MoonPhase; luck: string }> {
   const phases = [];
-  
+
   for (let i = 0; i < 30; i++) {
     const date = new Date(startDate);
     date.setDate(date.getDate() + i);
-    
+
     const moonPhase = getMoonPhase(date);
     phases.push({
       date,
@@ -155,7 +155,7 @@ export function getMoonPhasesForMonth(startDate: Date = new Date()): Array<{ dat
       luck: moonLuckMessages[moonPhase.name] || "The moon whispers secrets of good fortune."
     });
   }
-  
+
   return phases;
 }
 
@@ -165,10 +165,10 @@ export function getCalendarGrid(year: number, month: number): Array<{ date: Date
   const lastDay = new Date(year, month + 1, 0);
   const startDate = new Date(firstDay);
   startDate.setDate(startDate.getDate() - firstDay.getDay()); // Start from Sunday
-  
+
   const calendar = [];
   const current = new Date(startDate);
-  
+
   // Generate 6 weeks (42 days) to fill calendar grid
   for (let i = 0; i < 42; i++) {
     if (current.getMonth() === month) {
@@ -187,6 +187,6 @@ export function getCalendarGrid(year: number, month: number): Array<{ date: Date
     }
     current.setDate(current.getDate() + 1);
   }
-  
+
   return calendar;
 }
